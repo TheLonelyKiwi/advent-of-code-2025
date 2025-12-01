@@ -1,3 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿
+using advent_of_code_2025.solutions;
 
-Console.WriteLine("Hello, World!");
+string[] input = File.ReadAllLines("../../../input.txt");
+
+Day1 day1 = new Day1(input);
+
+day1.Solve2();
