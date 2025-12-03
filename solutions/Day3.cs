@@ -15,7 +15,7 @@ public class Day3(string[] input)
             for (int i = 0; i < nums.Length - 1; i++)
             {
                 int first = nums[i];
-                var second = nums[(i+ 1)..].Max();
+                int second = nums[(i+ 1)..].Max();
                 
                 int bank = int.Parse(first.ToString() + second); 
                 
@@ -33,47 +33,30 @@ public class Day3(string[] input)
     
     public void Solve2()
     {
-        int total = 0;
+        long total = 0;
         
         foreach (var line in input)
         {
             List<int> nums = line.ToCharArray().Select(c => int.Parse(c.ToString())).ToList();
-
-            int topBank = 0;
-
-            List<int> digits = new List<int>();
-            int startRange = 0;
-            int maxRange = nums.Count() - digits.Count();
-            while (digits.Count < 12)
+            
+            string answer = "";
+            int startIndex = 0;
+            int bankSize = 12;
+            for (int answerPos = 0; answerPos < bankSize; answerPos++)
             {
-                for (int i = 0; i < nums.Count; i++)
+                int maxValue = 0;
+                for (int i = startIndex; i <= nums.Count - (bankSize - answerPos); i++)
                 {
-                    int topNum = nums.Where((n, idx) => idx >= startRange && idx < maxRange + 1).Max();
-                    int topIdx = nums.FindIndex(idx => idx >= startRange && idx < maxRange + 1 && nums[idx] == topNum);
-                    digits.Add(nums[topIdx]);
-
-                    startRange = topIdx + 1;
-                    maxRange++;
-
-                    Console.WriteLine(nums);
+                    if (nums[i] > maxValue)
+                    {
+                        maxValue = nums[i];
+                        startIndex = i + 1;
+                    }
                 }
-
+                answer += maxValue;
             }
-            
-            //for (int i = 0; i < nums.Length - 1; i++)
-            //{
-            //    int first = nums[i];
-            //    var second = nums[(i+ 1)..].Max();
-            //    
-            //    int bank = int.Parse(first.ToString() + second); 
-            //    
-            //    if (bank > topBank)
-            //    {
-            //        topBank = bank;
-            //    }
-            //}
-            
-            total += topBank;
+
+            total += long.Parse(answer);
         }
         
         Console.WriteLine(total);
