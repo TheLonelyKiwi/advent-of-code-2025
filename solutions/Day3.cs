@@ -41,7 +41,7 @@ public class Day3(string[] input)
             
             string answer = "";
             int startIndex = 0;
-            int bankSize = 12;
+            int bankSize = 2;
             for (int answerPos = 0; answerPos < bankSize; answerPos++)
             {
                 int maxValue = 0;
